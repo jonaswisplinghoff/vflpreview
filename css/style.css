@@ -3,3 +3,8 @@
     width: 800px;
     margin: 0 auto;
 }
+
+#content {
+    margin: 1em auto;
+    border: 2px solid black;
+}
