@@ -1,17 +1,23 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>VFLpreview</title>
-    <link rel="stylesheet" type="text/css"  href="css/style.css">
     <link rel="stylesheet" type="text/css"  href="css/normalize.css">
+    <link rel="stylesheet" type="text/css"  href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css"  href="css/style.css">
     <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="js/vflParser.js"></script>
   </head>
   <body>
     <div id="wrapper">
       <h1>VFLpreview</h1>
-      <h2>Renders your <a href="https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/VisualFormatLanguage/VisualFormatLanguage.html#//apple_ref/doc/uid/TP40010853-CH3-SW1">VFL</a>-Strings as you type it.</h2>
-      <label>VFL: </label><input type="text" id="vflString"></input>
-      <div id="content"></div>
+      <h2><small>Renders your <a href="https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/VisualFormatLanguage/VisualFormatLanguage.html#//apple_ref/doc/uid/TP40010853-CH3-SW1">VFL</a>-Strings as you type it.</small></h2>
+      <hr>
+      <div class="form-group">
+        <label for="vflString">Visual Format Language</label>
+        <input type="text" id="vflString" class="form-control">
+      </div>
+      <div id="content">Enter a VFL-String above to get started...</div>
     </div>
   </body>
 </html>
