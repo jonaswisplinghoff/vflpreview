@@ -1,3 +1,9 @@
+//TODO: ordentliche Architektur einführen
+
+//NOTE:
+// regex: ([HV]:)?(\|(-\d*-|-)?)?(\[[a-zA-Z0-9]+(\((==|<=|>=)?(\d*|[a-zA-Z0-9]+)(@\d*)?(,(==|<=|>=)?(\d*|[a-zA-Z0-9]+)(@\d*)?)*\))?\])((-\d*-|-)?(\[[a-zA-Z0-9]+(\((==|<=|>=)?(\d*|[a-zA-Z0-9]+)(@\d*)?(,(==|<=|>=)?(\d*|[a-zA-Z0-9]+)(@\d*)?)*\))?\]))*((-\d*-|-)?\|)?
+// http://regexr.com/39uil
+
 $( document ).ready(function() {
   $("#vflString").change(function(){
     var vflString = $("#vflString").val();
@@ -14,16 +20,9 @@ $( document ).ready(function() {
       for(var i=0; i<result.length; i++){
         console.log(i + ": " + result[i]);
       }
-
     }
-    else{
+    else {
       console.log("Nicht erkannt!");
     }
-
-
   });
 });
-
-
-//regex: ([HV]:)?(\|(-\d*-|-)?)?(\[[a-zA-Z0-9]+(\((==|<=|>=)?(\d*|[a-zA-Z0-9]+)(@\d*)?(,(==|<=|>=)?(\d*|[a-zA-Z0-9]+)(@\d*)?)*\))?\])((-\d*-|-)?(\[[a-zA-Z0-9]+(\((==|<=|>=)?(\d*|[a-zA-Z0-9]+)(@\d*)?(,(==|<=|>=)?(\d*|[a-zA-Z0-9]+)(@\d*)?)*\))?\]))*((-\d*-|-)?\|)?
-// http://regexr.com/39uil
