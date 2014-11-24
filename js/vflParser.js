@@ -10,34 +10,34 @@ var number = /\d+/;
 var constant = XRegExp.build('(?x)^ {{metricName}}|{{number}} $', {
   metricName: metricName,
   number: number
-});
+}, 'x');
 var priority = XRegExp.build('(?x)^ {{metricName}}|{{number}} $', {
   metricName: metricName,
   number: number
-});
+}, 'x');
 var objectOfPredicate = XRegExp.build('(?x)^ {{constant}}|{{viewName}} $', {
   constant: constant,
   viewName: viewName
-});
+}, 'x');
 var relation = /==|<=|>=/;
 var predicate = XRegExp.build('(?x)^ ({{relation}})?({{objectOfPredicate}})(@{{priority}})? $', {
   relation: relation,
   objectOfPredicate: objectOfPredicate,
   priority: priority
-});
+}, 'x');
 var predicateListWithParens = XRegExp.build('(?x)^ {{openParens}}{{predicate}}(,{{predicate}})*{{closeParens}} $', {
   openParens: /\(/,
   predicate: predicate,
   closeParens: /\)/
-});
+}, 'x');
 var simplePredicate = XRegExp.build('(?x)^ {{metricName}}|{{positiveNumber}} $', {
   metricName: metricName,
   positiveNumber: number
-});
+}, 'x');
 var predicateList = XRegExp.build('(?x)^ {{simplePredicate}}|{{predicateListWithParens}} $', {
   simplePredicate: simplePredicate,
   predicateListWithParens: predicateListWithParens
-});
+}, 'x');
 var connection = XRegExp.build('(?x)^ (({{hyphen}}{{predicateList}}{{hyphen}})|{{hyphen}}|) $',{
   predicateList: predicateList,
   hyphen: /-/
@@ -47,7 +47,7 @@ var view = XRegExp.build('(?x)^ {{openBracket}}{{viewName}}({{predicateListWithP
   viewName: viewName,
   predicateListWithParens: predicateListWithParens,
   closeBracket: /]/
-});
+}, 'x');
 var superView = /\|/;
 var orientation = /H|V/;
 
