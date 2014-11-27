@@ -15,10 +15,14 @@
       <h1>VFLpreview</h1>
       <h2><small>Renders your <a href="https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/VisualFormatLanguage/VisualFormatLanguage.html#//apple_ref/doc/uid/TP40010853-CH3-SW1">VFL-Strings</a> as you type it.</small></h2>
       <hr>
-      <div id="vflForm" class="form-group">
-        <label class="control-label" for="vflString">Visual Format Language</label>
-        <input type="text" id="vflString" class="form-control">
-      </div>
+      <label class="control-label" for="vflString">Visual Format Language</label>
+      <form class="form-inline">
+        <div id="vflForm" class="form-group">
+          <input type="text" id="vflString" class="form-control">
+          <!--TODO: implement more than one textfield -->
+          <button id="addConstraintButton" type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
+        </div>
+      </form>
       <div id="content">Enter a VFL-String above to get started...</div>
     </div>
   </body>

@@ -64,10 +64,10 @@ $( document ).ready(function() {
     console.log("Textfield changed to: " + vflString);
 
     if(visualFormatString.test(vflString)){
-      validVflString(vflString)
+      validVflString(vflString);
     }
     else {
-      invalidVflString()
+      invalidVflString();
     }
   });
 });

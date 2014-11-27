@@ -4,6 +4,17 @@
     margin: 0 auto;
 }
 
+#vflForm{
+    width: 100%;
+}
+
+#vflString{
+    width: 94%;
+}
+
+#addConstraintButton{
+}
+
 #content {
     margin: 1em auto;
     border: 2px solid black;
