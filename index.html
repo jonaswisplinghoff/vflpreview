@@ -3,7 +3,7 @@
   <head>
     <title>VFLpreview</title>
     <link rel="stylesheet" type="text/css"  href="css/normalize.css">
-    <link rel="stylesheet" type="text/css"  href="css/bootstrap.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css"  href="css/style.css">
     <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="js/xregexp-min.js"></script>
@@ -15,14 +15,18 @@
       <h1>VFLpreview</h1>
       <h2><small>Renders your <a href="https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/VisualFormatLanguage/VisualFormatLanguage.html#//apple_ref/doc/uid/TP40010853-CH3-SW1">VFL-Strings</a> as you type it.</small></h2>
       <hr>
-      <label class="control-label" for="vflString">Visual Format Language</label>
-      <form class="form-inline">
-        <div id="vflForm" class="form-group">
-          <input type="text" id="vflString" class="form-control">
+      <label class="control-label" for="vflString">Constrains</label>
+      <div id="vflForm">
+        <div class="row">
+          <div class="col-xs-11">
+            <input type="text" id="vflString" class="form-control">
+          </div>
           <!--TODO: implement more than one textfield -->
-          <button id="addConstraintButton" type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
+          <div class="col-xs-1">
+            <button id="addConstraintButton" type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
+          </div>
         </div>
-      </form>
+      </div>
       <div id="content">Enter a VFL-String above to get started...</div>
     </div>
   </body>
