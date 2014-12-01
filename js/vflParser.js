@@ -59,18 +59,58 @@ var visualFormatString = XRegExp.build('(?x)^({{orientation}}:)?({{superview}}{{
 }, 'x');
 
 $( document ).ready(function() {
-  $("#vflString").bind('input', function(){
-    var vflString = $("#vflString").val();
-    console.log("Textfield changed to: " + vflString);
 
-    if(visualFormatString.test(vflString)){
-      validVflString(vflString);
-    }
-    else {
-      invalidVflString();
-    }
-  });
+  addInputRow();
+
 });
+
+var addInputRow = function() {
+  $("#vflForm").append(generateInputRow());
+
+  updateInputUpdateHandlers();
+  updateAddConstraintButtonClickHandlers();
+};
+
+var generateInputRow = function(){
+  return '<div class="row">' +
+      '<div class="col-xs-11">' +
+      '<input type="text" class="form-control vflString">' +
+      '</div>' +
+      '<div class="col-xs-1"><button type="button" class="btn btn-default addConstraintButton">' +
+      '<span class="glyphicon glyphicon-plus">' +
+      '</span>' +
+      '</button>' +
+      '</div>' +
+      '</div>'
+};
+
+var updateInputUpdateHandlers = function () {
+  $(".vflString").off('input');
+  $(".vflString").on('input', handleInputEvent);
+};
+
+var updateAddConstraintButtonClickHandlers = function () {
+  $(".addConstraintButton").off("click");
+  $(".addConstraintButton").on("click", handleAddConstraintButtonClick);
+};
+
+var handleInputEvent = function(event){
+
+  var vflString = $(event.target).val();
+  console.log("Input Event: " + vflString);
+
+  if(visualFormatString.test(vflString)){
+    validVflString(vflString);
+  }
+  else {
+    invalidVflString();
+  }
+};
+
+var handleAddConstraintButtonClick = function(event){
+  console.log("addConstraint button clicked");
+  addInputRow()
+};
 
 var validVflString = function(vflString){
   console.log("Valid VFL!");

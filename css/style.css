@@ -8,6 +8,10 @@
     width: 100%;
 }
 
+.row{
+    margin-bottom: 5px;
+}
+
 #content {
     margin: 1em auto;
     border: 2px solid black;
