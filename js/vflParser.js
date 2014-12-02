@@ -66,12 +66,27 @@ $( document ).ready(function() {
 
 var addInputRow = function() {
   $("#vflForm").append(generateInputRow());
-
-  updateInputUpdateHandlers();
-  updateAddConstraintButtonClickHandlers();
+  updateEventHandlers();
 };
 
-var inputRowCount = function(){
+var removeInputRow = function(row){
+  row.remove();
+  var allRows = $(".row");
+  for(var i=0; i<allRows.length; i++){
+    var currentRow = allRows[i];
+    $(currentRow).attr("id", i);
+    $(currentRow).find("input").attr("placeholder", i);
+  }
+  updateEventHandlers()
+};
+
+var updateEventHandlers = function(){
+  updateInputUpdateHandlers();
+  updateAddConstraintButtonClickHandlers();
+  updateRemoveConstraintButtonClickHandlers();
+};
+
+var getInputRowCount = function(){
   return $(".row").length;
 };
 
@@ -86,11 +101,11 @@ var generateInputRow = function(){
       '</span>' +
       '</button>';
 
-  var button = inputRowCount() == 0 ? addButton : removeButton;
+  var button = getInputRowCount() == 0 ? addButton : removeButton;
 
-  return '<div class="row">' +
+  return '<div class="row" id="'+getInputRowCount()+'">' +
       '<div class="col-xs-11">' +
-      '<input type="text" class="form-control vflString" placeholder="'+inputRowCount()+'">' +
+      '<input type="text" class="form-control vflString" placeholder="'+getInputRowCount()+'">' +
       '</div>' +
       '<div class="col-xs-1">' +
           button +
@@ -106,6 +121,11 @@ var updateInputUpdateHandlers = function () {
 var updateAddConstraintButtonClickHandlers = function () {
   $(".addConstraintButton").off("click");
   $(".addConstraintButton").on("click", handleAddConstraintButtonClick);
+};
+
+var updateRemoveConstraintButtonClickHandlers = function () {
+  $(".removeConstraintButton").off("click");
+  $(".removeConstraintButton").on("click", handleRemoveConstraintButtonClick);
 };
 
 var handleInputEvent = function(event){
@@ -124,6 +144,12 @@ var handleInputEvent = function(event){
 var handleAddConstraintButtonClick = function(event){
   console.log("addConstraint button clicked");
   addInputRow()
+};
+
+var handleRemoveConstraintButtonClick = function(event){
+  console.log("removeConstraint button clicked");
+  var row = $($(event.target).parents(".row")[0]);
+  removeInputRow(row);
 };
 
 var validVflString = function(vflString){
