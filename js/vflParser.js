@@ -71,15 +71,29 @@ var addInputRow = function() {
   updateAddConstraintButtonClickHandlers();
 };
 
+var inputRowCount = function(){
+  return $(".row").length;
+};
+
 var generateInputRow = function(){
-  return '<div class="row">' +
-      '<div class="col-xs-11">' +
-      '<input type="text" class="form-control vflString">' +
-      '</div>' +
-      '<div class="col-xs-1"><button type="button" class="btn btn-default addConstraintButton">' +
+  var addButton = '<button type="button" class="btn btn-default addConstraintButton">' +
       '<span class="glyphicon glyphicon-plus">' +
       '</span>' +
-      '</button>' +
+      '</button>';
+
+  var removeButton = '<button type="button" class="btn btn-default removeConstraintButton">' +
+      '<span class="glyphicon glyphicon-minus">' +
+      '</span>' +
+      '</button>';
+
+  var button = inputRowCount() == 0 ? addButton : removeButton;
+
+  return '<div class="row">' +
+      '<div class="col-xs-11">' +
+      '<input type="text" class="form-control vflString" placeholder="'+inputRowCount()+'">' +
+      '</div>' +
+      '<div class="col-xs-1">' +
+          button +
       '</div>' +
       '</div>'
 };
