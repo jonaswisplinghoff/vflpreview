@@ -8,7 +8,17 @@
     <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="js/xregexp-min.js"></script>
     <script src="js/xregexp.build.js"></script>
-    <script src="js/vflParser.js"></script>
+
+    <script src="js/VflContent.js"></script>
+    <script src="js/VflParser.js"></script>
+    <script src="js/VflForm.js"></script>
+    <script src="js/VflPreview.js"></script>
+    <script>
+      /* public static void main(String[] args) ;P */
+      $(document).ready(function() {
+        vflPreview = new VflPreview();
+      });
+    </script>
   </head>
   <body>
     <div id="wrapper">
