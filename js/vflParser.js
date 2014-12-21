@@ -47,8 +47,8 @@ function VflParser() {
     predicateListWithParens: predicateListWithParens,
     closeBracket: /\]/
   }, 'x');
-  var superView = /\|/;
-  var orientation = /H|V/;
+  var superView = XRegExp.build('\|');
+  var orientation = XRegExp.build('H|V');
 
   var visualFormatString = XRegExp.build('(?x)^({{orientation}}:)?({{superview}}{{connection}})?{{view}}({{connection}}{{view}})*({{connection}}{{superview}})? $',{
     orientation: orientation,
@@ -59,11 +59,11 @@ function VflParser() {
 
   var construct = function() {
     //
-  }
+  };
 
   this.isValidVflString = function(vflString) {
     return !!visualFormatString.test(vflString);
-  }
+  };
 
   this.getViewsFromVflString = function(vflString) {
     var return_array=new Array();
@@ -71,7 +71,25 @@ function VflParser() {
       return_array[i]=match;
     });
     return return_array;
-  }
+  };
+
+  this.getOrientation = function(vflString){
+    var actualOrientation = XRegExp.exec(vflString, orientation);
+    if(actualOrientation[0] === 'V' || actualOrientation[0] === 'H'){
+      return actualOrientation[0];
+    }
+    else{
+      return 'H';
+    }
+  };
+
+  this.getWidthForView = function(actualView){
+    var actualPredicateListWithParens = XRegExp.exec(actualView, view).predicateListWithParens;
+    var actualPredicate = XRegExp.exec(actualPredicateListWithParens, predicate);
+    var actualObjectOfPredicate = XRegExp.exec(actualPredicate, objectOfPredicate);
+
+    return actualObjectOfPredicate[0];
+  };
 
   construct();
 }
