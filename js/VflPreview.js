@@ -7,6 +7,7 @@ function VflPreview() {
     parser = new VflParser();
     content = new VflContent(parser);
     form = new VflForm(content, parser);
-  }
+  };
+
   construct();
 }

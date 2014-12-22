@@ -7,13 +7,13 @@ function VflForm(vflCont, vflPars) {
     addInputRow();
     vflContent=vflCont;
     vflParser=vflPars;
-  }
+  };
 
   var addInputRow = function() {
     // TODO: (if there is time left) Add input row at certain index, not only at the end (as implemented so far)
     wrapperElement.append(generateInputRow());
     updateEventHandlers();
-  }
+  };
 
   var removeInputRow = function(row) {
     row.remove();
@@ -24,7 +24,7 @@ function VflForm(vflCont, vflPars) {
       $(currentRow).find("input").attr("placeholder", i);
     }
     updateEventHandlers();
-  }
+  };
 
   var generateInputRow = function() {
     var addButton = '<button type="button" class="btn btn-default addConstraintButton">' +
@@ -47,22 +47,22 @@ function VflForm(vflCont, vflPars) {
             button +
         '</div>' +
         '</div>';
-  }
+  };
 
   var getInputRowCount = function() {
     return $(".row").length;
-  }
+  };
 
   var updateEventHandlers = function() {
     updateInputUpdateHandlers();
     updateAddConstraintButtonClickHandlers();
     updateRemoveConstraintButtonClickHandlers();
-  }
+  };
 
   var updateInputUpdateHandlers = function() {
     $(".vflString").off('input');
     $(".vflString").on('input', handleInputEvent);
-  }
+  };
 
   var handleInputEvent = function(event) {
     var vflString = $(event.target).val();
@@ -73,34 +73,34 @@ function VflForm(vflCont, vflPars) {
     } else {
       invalidVflString();
     }
-  }
+  };
 
   var updateAddConstraintButtonClickHandlers = function() {
     $(".addConstraintButton").off("click");
     $(".addConstraintButton").on("click", handleAddConstraintButtonClick);
-  }
+  };
 
   var handleAddConstraintButtonClick = function() {
     console.log("addConstraint button clicked");
     addInputRow();
-  }
+  };
 
   var updateRemoveConstraintButtonClickHandlers = function() {
     $(".removeConstraintButton").off("click");
     $(".removeConstraintButton").on("click", handleRemoveConstraintButtonClick);
-  }
+  };
 
   var handleRemoveConstraintButtonClick = function() {
     console.log("removeConstraint button clicked");
     var row = $($(event.target).parents(".row")[0]);
     removeInputRow(row);
-  }
+  };
 
   var validVflString = function(vflString) {
     console.log("Valid VFL!");
     setTextViewColorToValid(true);
     vflContent.renderVfl(vflString);
-  }
+  };
 
   var setTextViewColorToValid = function(valid) {
     if(valid){
@@ -110,13 +110,13 @@ function VflForm(vflCont, vflPars) {
       wrapperElement.removeClass("has-success");
       wrapperElement.addClass("has-error");
     }
-  }
+  };
 
   var invalidVflString = function() {
     console.log("Invalid VFL!");
     setTextViewColorToValid(false);
     vflContent.reset();
-  }
+  };
 
   construct(vflCont, vflPars);
 }
