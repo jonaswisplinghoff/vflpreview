@@ -47,7 +47,7 @@ function VflParser() {
     predicateListWithParens: predicateListWithParens,
     closeBracket: /\]/
   }, 'x');
-  var superView = XRegExp.build('\|');
+  var superView = /\|/;
   var orientation = XRegExp.build('H|V');
 
   var visualFormatString = XRegExp.build('(?x)^({{orientation}}:)?({{superview}}{{connection}})?{{view}}({{connection}}{{view}})*({{connection}}{{superview}})? $',{
