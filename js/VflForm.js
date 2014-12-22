@@ -66,12 +66,13 @@ function VflForm(vflCont, vflPars) {
 
   var handleInputEvent = function(event) {
     var vflString = $(event.target).val();
-    console.log("Input Event: " + vflString);
+    var rowId = $(event.target).parent().parent().attr('id');
+    console.log("Input Event in row " + rowId + ": " + vflString);
 
-    if(vflPars.isValidVflString(vflString)){
-      validVflString(vflString);
+    if(vflParser.isValidVflString(vflString)){
+      validVflStringInRow(vflString, rowId);
     } else {
-      invalidVflString();
+      invalidVflStringInRow(rowId);
     }
   };
 
@@ -96,25 +97,24 @@ function VflForm(vflCont, vflPars) {
     removeInputRow(row);
   };
 
-  var validVflString = function(vflString) {
-    console.log("Valid VFL!");
-    setTextViewColorToValid(true);
+  var validVflStringInRow = function(vflString, rowId) {
+    setRowHighlightingToValid(true, rowId);
     vflContent.renderVfl(vflString);
   };
 
-  var setTextViewColorToValid = function(valid) {
+  var setRowHighlightingToValid = function(valid, rowId) {
+    var row = $("div[id="+rowId+"]");
     if(valid){
-      wrapperElement.removeClass("has-error");
-      wrapperElement.addClass("has-success");
+      row.removeClass("has-error");
+      row.addClass("has-success");
     } else {
-      wrapperElement.removeClass("has-success");
-      wrapperElement.addClass("has-error");
+      row.removeClass("has-success");
+      row.addClass("has-error");
     }
   };
 
-  var invalidVflString = function() {
-    console.log("Invalid VFL!");
-    setTextViewColorToValid(false);
+  var invalidVflStringInRow = function(rowId) {
+    setRowHighlightingToValid(false, rowId);
     vflContent.reset();
   };
 
