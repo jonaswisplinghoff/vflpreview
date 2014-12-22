@@ -75,12 +75,12 @@ function VflParser() {
 
   this.getOrientation = function(vflString){
     var actualOrientation = XRegExp.exec(vflString, orientation);
-    if(actualOrientation[0] === 'V' || actualOrientation[0] === 'H'){
-      return actualOrientation[0];
+    if(actualOrientation != null){
+      if(actualOrientation[0] === 'V' || actualOrientation[0] === 'H'){
+        return actualOrientation[0];
+      }
     }
-    else{
-      return 'H';
-    }
+    return 'H';
   };
 
   this.getWidthForView = function(actualView){
