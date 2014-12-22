@@ -17,6 +17,9 @@ function VflForm(vflCont, vflPars) {
   };
 
   var removeInputRow = function(row) {
+    console.log(LOG + "removeInputRow");
+
+    vflContent.removeConstraint($(row).attr('id'));
     row.remove();
     var allRows = $(".row");
     for(var i=0; i<allRows.length; i++){

@@ -14,16 +14,24 @@ function VflContent(vflCont) {
     contentElement.empty();
   };
 
+  this.removeConstraint = function(constraintId){
+    console.log(LOG + "removeConstraint: " + constraintId);
+    constrains.splice(constraintId,1);
+
+    self.layoutConstrains();
+  };
+
   this.addConstraint = function(vflString, rowId) {
     console.log(LOG + "Constraint added [" + rowId + "]: " + vflString);
     constrains[rowId] = vflString;
-    self.reset();
     self.layoutConstrains();
   };
 
   this.layoutConstrains = function() {
     console.log(LOG + "layoutConstrains");
     console.log(constrains);
+
+    self.reset();
 
     //TODO: implement layout logic
 
