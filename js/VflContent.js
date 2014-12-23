@@ -6,12 +6,17 @@ function VflContent(vflCont) {
   var constrains = [];
 
   var construct = function(vflCont) {
-    //self.reset();
     vflContent=vflCont;
+
+    contentElement.resizable({
+      minHeight: 150,
+      minWidth: 150
+    });
   };
 
   this.reset = function() {
-    contentElement.empty();
+    contentElement.children("p").remove();
+    contentElement.children("div.view").remove();
   };
 
   this.removeConstraint = function(constraintId){

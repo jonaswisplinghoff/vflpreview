@@ -4,8 +4,10 @@
     <title>VFLpreview</title>
     <link rel="stylesheet" type="text/css"  href="css/normalize.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" type="text/css"  href="css/style.css">
     <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <script src="js/xregexp-min.js"></script>
     <script src="js/xregexp.build.js"></script>
 
@@ -27,7 +29,9 @@
       <hr>
       <label class="control-label" for="vflString">Constrains</label>
       <div id="vflForm"></div>
-      <div id="content">Enter a VFL-String above to get started...</div>
+      <div id="content" class="ui-widget-content">
+        <p>Enter a VFL-String above to get started...</p>
+      </div>
     </div>
   </body>
 </html>
