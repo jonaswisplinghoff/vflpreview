@@ -44,15 +44,24 @@ function VflContent(vflCont) {
       var views = vflContent.getViewsFromVflString(vflString);
 
       for (var j = 0; j < views.length; j++) {
-        contentElement.append("<div class='view' id='" + views[j]["viewName"] + "'>" + views[j]["viewName"] + "</div>");
-
-        if (orientation === 'H') {
-          $("#" + views[j]["viewName"]).css("width", vflContent.getWidthForView(views[j]));
-        }
-        else if (orientation === 'V') {
-          $("#" + views[j]["viewName"]).css("height", vflContent.getWidthForView(views[j]));
-        }
+        self.addViewToContentElement(views[j]);
+        self.setViewDimensionForOrientation(views[j], orientation);
       }
+    }
+  };
+
+  this.addViewToContentElement = function(view){
+    if($("#" + view["viewName"]).length === 0){
+      contentElement.append("<div class='view' id='" + view["viewName"] + "'>" + view["viewName"] + "</div>");
+    }
+  };
+
+  this.setViewDimensionForOrientation = function(view, orientation){
+    if (orientation === 'H') {
+      $("#" + view["viewName"]).css("width", vflContent.getWidthForView(view));
+    }
+    else if (orientation === 'V') {
+      $("#" + view["viewName"]).css("height", vflContent.getWidthForView(view));
     }
   };
 
