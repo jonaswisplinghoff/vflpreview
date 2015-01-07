@@ -57,6 +57,11 @@ function VflParser() {
     view: view
   }, 'x');
 
+  var viewOrConnection = XRegExp.build('{{view}}|{{connection}}', {
+    view: view,
+    connection: connection
+  }, 'x');
+
   var construct = function() {
     //
   };
@@ -65,10 +70,18 @@ function VflParser() {
     return !!visualFormatString.test(vflString);
   };
 
-  this.getViewsFromVflString = function(vflString) {
-    var return_array=new Array();
-    XRegExp.forEach(vflString, view, function (match, i) {
-      return_array[i]=match;
+  this.isView = function(element){
+    return !!view.test(element);
+  };
+
+  this.isConnection = function(element){
+    return !!connection.test(element);
+  };
+
+  this.getViewsAndConnectionsFromVflString = function (vflString) {
+    var return_array = [];
+    XRegExp.forEach(vflString, viewOrConnection, function(match, i){
+      return_array.push(match);
     });
     return return_array;
   };

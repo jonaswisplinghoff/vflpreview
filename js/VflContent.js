@@ -2,11 +2,11 @@ function VflContent(vflCont) {
   var self=this;
   var LOG = "VflContent: ";
   var contentElement=$('#content');
-  var vflContent;
+  var vflParser;
   var constrains = [];
 
-  var construct = function(vflCont) {
-    vflContent=vflCont;
+  var construct = function(parser) {
+    vflParser=parser;
 
     contentElement.resizable({
       minHeight: 150,
@@ -40,17 +40,26 @@ function VflContent(vflCont) {
 
     //TODO: implement layout logic
 
-    for(var i = 0; i < constrains.length; i++){
-      var vflString = constrains[i];
+    for(var constraintIndex = 0; constraintIndex < constrains.length; constraintIndex++){
+      var vflString = constrains[constraintIndex];
       console.log(LOG + "layouting: " + vflString);
 
-      var orientation = vflContent.getOrientation(vflString);
+      var orientation = vflParser.getOrientation(vflString);
 
-      var views = vflContent.getViewsFromVflString(vflString);
+      var viewsOrConnections = vflParser.getViewsAndConnectionsFromVflString(vflString);
+      console.log(viewsOrConnections);
 
-      for (var j = 0; j < views.length; j++) {
-        self.addViewToContentElement(views[j]);
-        self.setViewDimensionForOrientation(views[j], orientation);
+      for (var elementIndex = 0; elementIndex < viewsOrConnections.length; elementIndex++) {
+        var currentElement = viewsOrConnections[elementIndex];
+
+        if(vflParser.isView(currentElement)) {
+          self.addViewToContentElement(currentElement);
+          self.setViewDimensionForOrientation(currentElement, orientation);
+        }
+        else if(vflParser.isConnection(currentElement)){
+          console.log("found connection: " + currentElement);
+          //TODO: add margins to views according to connection
+        }
       }
     }
   };
@@ -63,10 +72,10 @@ function VflContent(vflCont) {
 
   this.setViewDimensionForOrientation = function(view, orientation){
     if (orientation === 'H') {
-      $("#" + view["viewName"]).css("width", vflContent.getWidthForView(view));
+      $("#" + view["viewName"]).css("width", vflParser.getWidthForView(view));
     }
     else if (orientation === 'V') {
-      $("#" + view["viewName"]).css("height", vflContent.getWidthForView(view));
+      $("#" + view["viewName"]).css("height", vflParser.getWidthForView(view));
     }
   };
 
