@@ -3,7 +3,8 @@ function VflContent(vflCont) {
   var LOG = "VflContent: ";
   var contentElement=$('#content');
   var vflParser;
-  var constrains = [];
+  var constraints = [];
+  var viewElements = [];
 
   var construct = function(parser) {
     vflParser=parser;
@@ -21,33 +22,33 @@ function VflContent(vflCont) {
 
   this.removeConstraint = function(constraintId){
     console.log(LOG + "removeConstraint: " + constraintId);
-    constrains.splice(constraintId,1);
+    constraints.splice(constraintId,1);
 
-    self.layoutConstrains();
+    self.layoutConstraints();
   };
 
   this.addConstraint = function(vflString, rowId) {
     console.log(LOG + "Constraint added [" + rowId + "]: " + vflString);
-    constrains[rowId] = vflString;
-    self.layoutConstrains();
+    constraints[rowId] = vflString;
+    self.layoutConstraints();
   };
 
-  this.layoutConstrains = function() {
-    console.log(LOG + "layoutConstrains");
-    console.log(constrains);
+  this.layoutConstraints = function() {
+    console.log(LOG + "layoutConstraints");
+    console.log(constraints);
 
     self.reset();
 
     //TODO: implement layout logic
 
-    for(var constraintIndex = 0; constraintIndex < constrains.length; constraintIndex++){
-      var vflString = constrains[constraintIndex];
+    for(var constraintIndex = 0; constraintIndex < constraints.length; constraintIndex++){
+      var vflString = constraints[constraintIndex];
       console.log(LOG + "layouting: " + vflString);
 
       var orientation = vflParser.getOrientation(vflString);
 
       var viewsOrConnections = vflParser.getViewsAndConnectionsFromVflString(vflString);
-      console.log(viewsOrConnections);
+      //console.log(viewsOrConnections);
 
       for (var elementIndex = 0; elementIndex < viewsOrConnections.length; elementIndex++) {
         var currentElement = viewsOrConnections[elementIndex];
@@ -55,8 +56,7 @@ function VflContent(vflCont) {
         if(vflParser.isView(currentElement)) {
           self.addViewToContentElement(currentElement);
           self.setViewDimensionForOrientation(currentElement, orientation);
-        }
-        else if(vflParser.isConnection(currentElement)){
+        } else if(vflParser.isConnection(currentElement)){
           console.log("found connection: " + currentElement);
           //TODO: add margins to views according to connection
         }
@@ -65,17 +65,19 @@ function VflContent(vflCont) {
   };
 
   this.addViewToContentElement = function(view){
-    if($("#" + view["viewName"]).length === 0){
-      contentElement.append("<div class='view' id='" + view["viewName"] + "'>" + view["viewName"] + "</div>");
+    if (typeof viewElements[view["viewName"]] == 'undefined') {
+      viewElements[view["viewName"]] = new ViewElement(view["viewName"], contentElement);
     }
+    viewElements[view["viewName"]].draw();
   };
 
   this.setViewDimensionForOrientation = function(view, orientation){
+    //TODO: implement more sophisticated layout logic
     if (orientation === 'H') {
-      $("#" + view["viewName"]).css("width", vflParser.getWidthForView(view));
+      viewElements[view["viewName"]].setWidth(vflParser.getWidthForView(view));
     }
     else if (orientation === 'V') {
-      $("#" + view["viewName"]).css("height", vflParser.getWidthForView(view));
+      viewElements[view["viewName"]].setHeight(vflParser.getWidthForView(view));
     }
   };
 
