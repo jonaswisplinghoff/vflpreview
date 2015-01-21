@@ -17,7 +17,7 @@ function VflForm(vflCont, vflPars) {
   };
 
   var removeInputRow = function(row) {
-    console.log(LOG + "removeInputRow");
+    //console.log(LOG + "removeInputRow");
 
     vflContent.removeConstraint($(row).attr('id'));
     row.remove();
@@ -71,7 +71,7 @@ function VflForm(vflCont, vflPars) {
   var handleInputEvent = function(event) {
     var vflString = $(event.target).val();
     var rowId = $(event.target).parent().parent().attr('id');
-    console.log(LOG + "Input Event in row " + rowId + ": " + vflString);
+    //console.log(LOG + "Input Event in row " + rowId + ": " + vflString);
 
     if(vflParser.isValidVflString(vflString)){
       validVflStringInRow(vflString, rowId);
@@ -86,7 +86,7 @@ function VflForm(vflCont, vflPars) {
   };
 
   var handleAddConstraintButtonClick = function() {
-    console.log(LOG + "addConstraint button clicked");
+    //console.log(LOG + "addConstraint button clicked");
     addInputRow();
   };
 
@@ -96,7 +96,7 @@ function VflForm(vflCont, vflPars) {
   };
 
   var handleRemoveConstraintButtonClick = function() {
-    console.log(LOG + "removeConstraint button clicked");
+    //console.log(LOG + "removeConstraint button clicked");
     var row = $($(event.target).parents(".row")[0]);
     removeInputRow(row);
   };
@@ -119,7 +119,7 @@ function VflForm(vflCont, vflPars) {
   };
 
   var invalidVflStringInRow = function(rowId) {
-    console.log(LOG + "Invalid String");
+    //console.log(LOG + "Invalid String");
     setRowHighlightingToValid(false, rowId);
     vflContent.reset();
   };
