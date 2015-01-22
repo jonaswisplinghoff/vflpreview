@@ -96,13 +96,32 @@ function VflParser() {
     return 'H';
   };
 
-  this.getWidthForView = function(actualView){
+  this.getDimensionForView = function(actualView){
+    // TODO: support for multiple predicates as in "[foo(>=500,==100)]"
+    // TODO: support for different types of relation ("=="/">="/"<=")
     var actualPredicateListWithParens = XRegExp.exec(actualView, view).predicateListWithParens;
     var actualPredicate = XRegExp.exec(actualPredicateListWithParens, predicate);
-    var actualObjectOfPredicate = XRegExp.exec(actualPredicate, objectOfPredicate);
+    //console.log(actualPredicate); console.log(actualPredicate["relation"]); console.log(actualPredicate["objectOfPredicate"]);
 
-    return actualObjectOfPredicate[0];
+    return actualPredicate["objectOfPredicate"];
   };
+
+  this.getDimensionForConnection = function(actualConnection){
+    //console.log(actualConnection);
+
+    // TODO: "fix" provisional implementation by using XRegExp solution
+
+    //var actualPredicate = XRegExp.exec(actualConnection, connection).predicateList; // @Jonas: das geht nicht. immer "undefined"... warum?!^^
+    //console.log(actualPredicate);
+
+    // provisional implementation
+    var return_value = Math.abs(parseInt(actualConnection[0]));
+    if (isNaN(return_value)) { // if connection is "-" (which gets parsed to NaN) set default value
+      return_value = 8;
+    }
+
+    return return_value;
+  }
 
   construct();
 }

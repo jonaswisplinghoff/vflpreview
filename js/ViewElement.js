@@ -21,29 +21,63 @@ function ViewElement(id, contentElement) {
     if($("#"+domElementId).length === 0){
       contentElement.append("<div class='view' id='"+domElementId+"'>"+domElementId+"</div>");
       domElement=$('#'+domElementId);
-      //console.log('drawing: '+domElementId);
+      //console.log("drawing: "+domElementId);
       refreshProperties();
     }
   };
 
+  this.getId = function() { return domElementId; }
+
   this.setWidth = function(w) {
-    if (w != "undefined") {
-      width=parseInt(w);
+    var parsed=parseInt(w);
+    if (!isNaN(parsed)) {
+      width=parsed;
       refreshProperties();
     }
   };
 
   this.setHeight = function(h) {
-    if (h != "undefined") {
-      height=parseInt(h);
+    var parsed=parseInt(h);
+    if (!isNaN(parsed)) {
+      height=parsed;
+      refreshProperties();
+    }
+  };
+
+  this.setMarginTop = function(m) {
+    var parsed=parseInt(m);
+    if (!isNaN(parsed)) {
+      marginTop=parsed;
+      refreshProperties();
+    }
+  };
+
+  this.setMarginRight = function(m) {
+    var parsed=parseInt(m);
+    if (!isNaN(parsed)) {
+      marginRight=parsed;
+      refreshProperties();
+    }
+  };
+
+  this.setMarginBottom = function(m) {
+    var parsed=parseInt(m);
+    if (!isNaN(parsed)) {
+      marginBottom=parsed;
+      refreshProperties();
+    }
+  };
+
+  this.setMarginLeft = function(m) {
+    var parsed=parseInt(m);
+    if (!isNaN(parsed)) {
+      marginLeft=parsed;
       refreshProperties();
     }
   };
 
   var refreshProperties = function() {
-    console.log("id: "+domElementId+" - "+width+"; "+height+"; "+marginTop+"; "+marginRight+"; "+marginBottom+"; "+marginLeft);
-
-    //if($("#"+domElementId).length === 0){
+    console.log(domElementId+" - width: "+width+"; height: "+height+"; margin: "+marginTop+" "+marginRight+" "+marginBottom+" "+marginLeft+";");
     if(domElement.length === 0){
       console.log("domElement of "+domElementId+" does not yet exist.");
     } else {

@@ -33,6 +33,41 @@
       <div id="content" class="ui-widget-content">
         <p>Enter a VFL-String above to get started...</p>
       </div>
+
+      <div style="clear: both;"></div>
+      <div style="margin-top: 40px;">
+        <h3>Was schon funktioniert:</h3>
+        <p>
+          einfache Views nebeneinander<br />
+          [asd][fgh]
+        </p>
+        <p>
+          Dimensionenangaben (allerdings nur einfach und ">="" / "<=" werden wie "==" behandelt)<br />
+          [asd(==500)]
+        </p>
+        <p>
+          Angabe der Orientierung (wirkt sich auf Anwendung der Dimensionenangabe aus)<br />
+          V:[asd(==200)]
+        </p>
+        <p>
+          Connections<br />
+          [asd]-[fff]<br />
+          [asd]-500-[fff]<br />
+          V:[asd]-500-[fff]
+        </p>
+
+        <h3>Was noch nicht funktioniert aber vielleicht noch funktionieren sollte:</h3>
+        <p>
+          "mehrzeilige" Views<br />
+          0: [asd][fff]<br />
+          1: [asd][ggg]
+        </p>
+        <p>
+          Superviews<br />
+          V:|-500-[asd]-500-|
+        </p>
+      </div>
+
     </div>
   </body>
 </html>

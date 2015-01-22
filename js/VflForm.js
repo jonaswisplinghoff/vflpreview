@@ -102,7 +102,7 @@ function VflForm(vflCont, vflPars) {
   };
 
   var validVflStringInRow = function(vflString, rowId) {
-    console.log(LOG + "Valid String");
+    //console.log(LOG + "Valid String");
     setRowHighlightingToValid(true, rowId);
     vflContent.addConstraint(vflString, rowId);
   };

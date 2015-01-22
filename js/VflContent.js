@@ -18,6 +18,7 @@ function VflContent(vflCont) {
   this.reset = function() {
     contentElement.children("p").remove();
     contentElement.children("div.view").remove();
+    viewElements=[];
   };
 
   this.removeConstraint = function(constraintId){
@@ -34,8 +35,7 @@ function VflContent(vflCont) {
   };
 
   this.layoutConstraints = function() {
-    console.log(LOG + "layoutConstraints");
-    console.log(constraints);
+    console.log(LOG + "layoutConstraints: "+constraints);
 
     self.reset();
 
@@ -50,34 +50,50 @@ function VflContent(vflCont) {
       var viewsOrConnections = vflParser.getViewsAndConnectionsFromVflString(vflString);
       //console.log(viewsOrConnections);
 
+      var lastAddedViewElement=null;
+
       for (var elementIndex = 0; elementIndex < viewsOrConnections.length; elementIndex++) {
         var currentElement = viewsOrConnections[elementIndex];
+        
+        if (currentElement[0] == "") {
+          continue;
+        }
 
         if(vflParser.isView(currentElement)) {
-          self.addViewToContentElement(currentElement);
-          self.setViewDimensionForOrientation(currentElement, orientation);
+          lastAddedViewElement = addViewToContentElement(currentElement);
+          setViewDimensionForOrientation(currentElement, orientation);
         } else if(vflParser.isConnection(currentElement)){
-          console.log("found connection: " + currentElement);
-          //TODO: add margins to views according to connection
+          if (lastAddedViewElement !== null) {
+            setConnectionForOrientation(currentElement,orientation,lastAddedViewElement);
+          }
         }
       }
     }
   };
 
-  this.addViewToContentElement = function(view){
-    if (typeof viewElements[view["viewName"]] == 'undefined') {
+  var addViewToContentElement = function(view){
+    if (typeof viewElements[view["viewName"]] == 'undefined') { // check if element already exists in viewElements
       viewElements[view["viewName"]] = new ViewElement(view["viewName"], contentElement);
     }
     viewElements[view["viewName"]].draw();
+    return viewElements[view["viewName"]];
   };
 
-  this.setViewDimensionForOrientation = function(view, orientation){
-    //TODO: implement more sophisticated layout logic
+  var setViewDimensionForOrientation = function(view, orientation){
     if (orientation === 'H') {
-      viewElements[view["viewName"]].setWidth(vflParser.getWidthForView(view));
+      viewElements[view["viewName"]].setWidth(vflParser.getDimensionForView(view));
     }
     else if (orientation === 'V') {
-      viewElements[view["viewName"]].setHeight(vflParser.getWidthForView(view));
+      viewElements[view["viewName"]].setHeight(vflParser.getDimensionForView(view));
+    }
+  };
+
+  var setConnectionForOrientation = function(connection, orientation, lastAddedVE){
+    if (orientation === 'H') {
+      viewElements[lastAddedVE.getId()].setMarginRight(vflParser.getDimensionForConnection(connection));
+    }
+    else if (orientation === 'V') {
+      viewElements[lastAddedVE.getId()].setMarginBottom(vflParser.getDimensionForConnection(connection));
     }
   };
 
