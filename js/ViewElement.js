@@ -11,7 +11,10 @@ function ViewElement(id, contentElement) {
   var marginRight=0;
   var marginBottom=0;
   var marginLeft=0;
-  var float="left";
+  var float="none";
+  var clear="none";
+  var partOfHorizontalLayout=false;
+  var partOfVerticalLayout=false;
 
   var construct = function(id, contentEl) {
     domElementId=id;
@@ -28,6 +31,14 @@ function ViewElement(id, contentElement) {
   };
 
   this.getId = function() { return domElementId; };
+
+  this.setIsPartOfHorizontalLayout = function(){
+    partOfHorizontalLayout = true;
+  };
+
+  this.setIsPartOfVerticalLayout = function(){
+    partOfVerticalLayout = true;
+  };
 
   this.setWidth = function(w) {
     var parsed=parseInt(w);
@@ -78,11 +89,25 @@ function ViewElement(id, contentElement) {
   };
 
   this.setFloating = function (f) {
-    float = f;
+    if(partOfHorizontalLayout && f === "none"){
+      // Do nothing
+    }else{
+      float = f;
+    }
+    refreshProperties();
+  };
+
+  this.setClearing = function (c) {
+    if(partOfHorizontalLayout && c === "left") {
+      // Do nothing
+    }else{
+      clear = c;
+    }
+    refreshProperties();
   };
 
   var refreshProperties = function() {
-    console.log(domElementId+" - width: "+width+"; height: "+height+"; margin: "+marginTop+" "+marginRight+" "+marginBottom+" "+marginLeft+";");
+    console.log(domElementId+" - width: "+width+"; height: "+height+"; margin: "+marginTop+" "+marginRight+" "+marginBottom+" "+marginLeft+"; float: " + float + "; clear: " + clear + ";");
     if(domElement.length === 0){
       console.log("domElement of "+domElementId+" does not yet exist.");
     } else {
@@ -90,6 +115,7 @@ function ViewElement(id, contentElement) {
       domElement.css("height", height);
       domElement.css("margin", marginTop+"px "+marginRight+"px "+marginBottom+"px "+marginLeft+"px");
       domElement.css("float", float);
+      domElement.css("clear", clear);
     }
   };
 
