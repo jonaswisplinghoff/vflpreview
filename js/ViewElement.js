@@ -82,7 +82,7 @@ function ViewElement(id, contentElement) {
   };
 
   var refreshProperties = function() {
-    console.log(domElementId+" - width: "+width+"; height: "+height+"; margin: "+marginTop+" "+marginRight+" "+marginBottom+" "+marginLeft+";");
+    console.log(domElementId+" - width: "+width+"; height: "+height+"; margin: "+marginTop+" "+marginRight+" "+marginBottom+" "+marginLeft+"; float: " + float);
     if(domElement.length === 0){
       console.log("domElement of "+domElementId+" does not yet exist.");
     } else {
