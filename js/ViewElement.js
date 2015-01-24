@@ -79,6 +79,7 @@ function ViewElement(id, contentElement) {
 
   this.setFloating = function (f) {
     float = f;
+    refreshProperties();
   };
 
   var refreshProperties = function() {
