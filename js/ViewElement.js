@@ -13,6 +13,8 @@ function ViewElement(id, contentElement) {
   var marginLeft=0;
   var float="none";
   var clear="none";
+  var partOfHorizontalLayout=false;
+  var partOfVerticalLayout=false;
 
   var construct = function(id, contentEl) {
     domElementId=id;
@@ -29,6 +31,14 @@ function ViewElement(id, contentElement) {
   };
 
   this.getId = function() { return domElementId; };
+
+  this.setIsPartOfHorizontalLayout = function(){
+    partOfHorizontalLayout = true;
+  };
+
+  this.setIsPartOfVerticalLayout = function(){
+    partOfVerticalLayout = true;
+  };
 
   this.setWidth = function(w) {
     var parsed=parseInt(w);
@@ -79,12 +89,20 @@ function ViewElement(id, contentElement) {
   };
 
   this.setFloating = function (f) {
-    float = f;
+    if(partOfHorizontalLayout && f === "none"){
+      // Do nothing
+    }else{
+      float = f;
+    }
     refreshProperties();
   };
 
   this.setClearing = function (c) {
-    clear = c;
+    if(partOfHorizontalLayout && c === "left") {
+      // Do nothing
+    }else{
+      clear = c;
+    }
     refreshProperties();
   };
 

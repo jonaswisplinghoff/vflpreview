@@ -70,6 +70,7 @@ function VflContent(vflCont) {
 
       if(vflParser.isView(currentElement)) {
         lastAddedViewElement = addViewToContentElement(currentElement);
+        setViewIsPartOfLayoutOrientation(currentElement, orientation);
         setViewDimensionForOrientation(currentElement, orientation);
         setViewFloatingForOrientation(currentElement, orientation);
         setViewClearingForOrientation(currentElement, orientation);
@@ -88,6 +89,15 @@ function VflContent(vflCont) {
     }
     viewElements[view["viewName"]].draw();
     return viewElements[view["viewName"]];
+  };
+
+  var setViewIsPartOfLayoutOrientation = function(view, orientation){
+    if (orientation === 'H') {
+      viewElements[view["viewName"]].setIsPartOfHorizontalLayout();
+    }
+    else if (orientation === 'V') {
+      viewElements[view["viewName"]].setIsPartOfVerticalLayout();
+    }
   };
 
   var setViewFloatingForOrientation = function (view, orientation) {
