@@ -39,36 +39,44 @@ function VflContent(vflCont) {
 
     self.reset();
 
-    //TODO: implement layout logic
+    layoutConstrainsWithOrientation(constraints, 'H');
+    layoutConstrainsWithOrientation(constraints, 'V');
+
+  };
+
+  var layoutConstrainsWithOrientation = function(constraints, layoutOrientation){
 
     for(var constraintIndex = 0; constraintIndex < constraints.length; constraintIndex++){
       var vflString = constraints[constraintIndex];
-      //console.log(LOG + "layouting: " + vflString);
-
       var orientation = vflParser.getOrientation(vflString);
 
-      var viewsOrConnections = vflParser.getViewsAndConnectionsFromVflString(vflString);
-      //console.log(viewsOrConnections);
+      if(orientation == layoutOrientation){
+        layoutConstraint(vflString);
+      }
+    }
+  };
 
-      var lastAddedViewElement=null;
+  var layoutConstraint = function(vflString){
+    var orientation = vflParser.getOrientation(vflString);
+    var viewsOrConnections = vflParser.getViewsAndConnectionsFromVflString(vflString);
+    var lastAddedViewElement=null;
 
-      for (var elementIndex = 0; elementIndex < viewsOrConnections.length; elementIndex++) {
-        var currentElement = viewsOrConnections[elementIndex];
-        
-        if (currentElement[0] == "") {
-          continue;
-        }
+    for (var elementIndex = 0; elementIndex < viewsOrConnections.length; elementIndex++) {
+      var currentElement = viewsOrConnections[elementIndex];
 
-        if(vflParser.isView(currentElement)) {
-          lastAddedViewElement = addViewToContentElement(currentElement);
-          setViewDimensionForOrientation(currentElement, orientation);
-          setViewFloatingForOrientation(currentElement, orientation);
-          setViewClearingForOrientation(currentElement, orientation);
+      if (currentElement[0] == "") {
+        continue;
+      }
 
-        } else if(vflParser.isConnection(currentElement)){
-          if (lastAddedViewElement !== null) {
-            setConnectionForOrientation(currentElement,orientation,lastAddedViewElement);
-          }
+      if(vflParser.isView(currentElement)) {
+        lastAddedViewElement = addViewToContentElement(currentElement);
+        setViewDimensionForOrientation(currentElement, orientation);
+        setViewFloatingForOrientation(currentElement, orientation);
+        setViewClearingForOrientation(currentElement, orientation);
+
+      } else if(vflParser.isConnection(currentElement)){
+        if (lastAddedViewElement !== null) {
+          setConnectionForOrientation(currentElement,orientation,lastAddedViewElement);
         }
       }
     }
