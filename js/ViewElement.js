@@ -11,6 +11,7 @@ function ViewElement(id, contentElement) {
   var marginRight=0;
   var marginBottom=0;
   var marginLeft=0;
+  var float="left";
 
   var construct = function(id, contentEl) {
     domElementId=id;
@@ -26,7 +27,7 @@ function ViewElement(id, contentElement) {
     }
   };
 
-  this.getId = function() { return domElementId; }
+  this.getId = function() { return domElementId; };
 
   this.setWidth = function(w) {
     var parsed=parseInt(w);
@@ -76,6 +77,10 @@ function ViewElement(id, contentElement) {
     }
   };
 
+  this.setFloating = function (f) {
+    float = f;
+  };
+
   var refreshProperties = function() {
     console.log(domElementId+" - width: "+width+"; height: "+height+"; margin: "+marginTop+" "+marginRight+" "+marginBottom+" "+marginLeft+";");
     if(domElement.length === 0){
@@ -84,8 +89,9 @@ function ViewElement(id, contentElement) {
       domElement.css("width", width);
       domElement.css("height", height);
       domElement.css("margin", marginTop+"px "+marginRight+"px "+marginBottom+"px "+marginLeft+"px");
+      domElement.css("float", float);
     }
-  }
+  };
 
   construct(id, contentElement);
 }
