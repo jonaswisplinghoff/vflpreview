@@ -11,10 +11,13 @@ function ViewElement(id, contentElement) {
   var marginRight=0;
   var marginBottom=0;
   var marginLeft=0;
-  var float="none";
+  var float="left";
   var clear="none";
   var partOfHorizontalLayout=false;
   var partOfVerticalLayout=false;
+  var firstElementOfHorizontalLayout=false;
+  var firstElementOfVerticalLayout=false;
+
 
   var construct = function(id, contentEl) {
     domElementId=id;
@@ -31,6 +34,14 @@ function ViewElement(id, contentElement) {
   };
 
   this.getId = function() { return domElementId; };
+
+  this.setisFirstElementOfHorizontalLayout = function(){
+    firstElementOfHorizontalLayout = true;
+  };
+
+  this.setisFirstElementOfVerticalLayout = function(){
+    firstElementOfVerticalLayout = true;
+  };
 
   this.setIsPartOfHorizontalLayout = function(){
     partOfHorizontalLayout = true;
@@ -88,17 +99,9 @@ function ViewElement(id, contentElement) {
     }
   };
 
-  this.setFloating = function (f) {
-    if(partOfHorizontalLayout && f === "none"){
-      // Do nothing
-    }else{
-      float = f;
-    }
-    refreshProperties();
-  };
-
   this.setClearing = function (c) {
-    if(partOfHorizontalLayout && c === "left") {
+    if((partOfHorizontalLayout && !firstElementOfHorizontalLayout && c === "left") ||
+      (partOfVerticalLayout && c === "none")) {
       // Do nothing
     }else{
       clear = c;

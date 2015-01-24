@@ -60,6 +60,7 @@ function VflContent(vflCont) {
     var orientation = vflParser.getOrientation(vflString);
     var viewsOrConnections = vflParser.getViewsAndConnectionsFromVflString(vflString);
     var lastAddedViewElement=null;
+    var firstElementMarked=false;
 
     for (var elementIndex = 0; elementIndex < viewsOrConnections.length; elementIndex++) {
       var currentElement = viewsOrConnections[elementIndex];
@@ -70,9 +71,12 @@ function VflContent(vflCont) {
 
       if(vflParser.isView(currentElement)) {
         lastAddedViewElement = addViewToContentElement(currentElement);
+        if(!firstElementMarked){
+          setViewIsFirstElementOfLayoutOrientation(currentElement, orientation);
+          firstElementMarked = true;
+        }
         setViewIsPartOfLayoutOrientation(currentElement, orientation);
         setViewDimensionForOrientation(currentElement, orientation);
-        setViewFloatingForOrientation(currentElement, orientation);
         setViewClearingForOrientation(currentElement, orientation);
 
       } else if(vflParser.isConnection(currentElement)){
@@ -91,21 +95,21 @@ function VflContent(vflCont) {
     return viewElements[view["viewName"]];
   };
 
+  var setViewIsFirstElementOfLayoutOrientation = function(view, orientation){
+    if (orientation === 'H') {
+      viewElements[view["viewName"]].setisFirstElementOfHorizontalLayout();
+    }
+    else if (orientation === 'V') {
+      viewElements[view["viewName"]].setisFirstElementOfVerticalLayout();
+    }
+  };
+
   var setViewIsPartOfLayoutOrientation = function(view, orientation){
     if (orientation === 'H') {
       viewElements[view["viewName"]].setIsPartOfHorizontalLayout();
     }
     else if (orientation === 'V') {
       viewElements[view["viewName"]].setIsPartOfVerticalLayout();
-    }
-  };
-
-  var setViewFloatingForOrientation = function (view, orientation) {
-    if (orientation === 'H') {
-      viewElements[view["viewName"]].setFloating("left");
-    }
-    else if (orientation === 'V') {
-      viewElements[view["viewName"]].setFloating("none");
     }
   };
 
