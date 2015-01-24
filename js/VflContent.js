@@ -43,7 +43,7 @@ function VflContent(vflCont) {
 
     for(var constraintIndex = 0; constraintIndex < constraints.length; constraintIndex++){
       var vflString = constraints[constraintIndex];
-      console.log(LOG + "layouting: " + vflString);
+      //console.log(LOG + "layouting: " + vflString);
 
       var orientation = vflParser.getOrientation(vflString);
 
@@ -63,6 +63,7 @@ function VflContent(vflCont) {
           lastAddedViewElement = addViewToContentElement(currentElement);
           setViewDimensionForOrientation(currentElement, orientation);
           setViewFloatingForOrientation(currentElement, orientation);
+          setViewClearingForOrientation(currentElement, orientation);
 
         } else if(vflParser.isConnection(currentElement)){
           if (lastAddedViewElement !== null) {
@@ -87,6 +88,15 @@ function VflContent(vflCont) {
     }
     else if (orientation === 'V') {
       viewElements[view["viewName"]].setFloating("none");
+    }
+  };
+
+  var setViewClearingForOrientation = function (view, orientation){
+    if (orientation === 'H') {
+      viewElements[view["viewName"]].setClearing("none");
+    }
+    else if (orientation === 'V') {
+      viewElements[view["viewName"]].setClearing("left");
     }
   };
 

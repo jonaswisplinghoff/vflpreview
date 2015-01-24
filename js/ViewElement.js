@@ -11,7 +11,8 @@ function ViewElement(id, contentElement) {
   var marginRight=0;
   var marginBottom=0;
   var marginLeft=0;
-  var float="left";
+  var float="none";
+  var clear="none";
 
   var construct = function(id, contentEl) {
     domElementId=id;
@@ -82,8 +83,13 @@ function ViewElement(id, contentElement) {
     refreshProperties();
   };
 
+  this.setClearing = function (c) {
+    clear = c;
+    refreshProperties();
+  };
+
   var refreshProperties = function() {
-    console.log(domElementId+" - width: "+width+"; height: "+height+"; margin: "+marginTop+" "+marginRight+" "+marginBottom+" "+marginLeft+"; float: " + float);
+    console.log(domElementId+" - width: "+width+"; height: "+height+"; margin: "+marginTop+" "+marginRight+" "+marginBottom+" "+marginLeft+"; float: " + float + "; clear: " + clear + ";");
     if(domElement.length === 0){
       console.log("domElement of "+domElementId+" does not yet exist.");
     } else {
@@ -91,6 +97,7 @@ function ViewElement(id, contentElement) {
       domElement.css("height", height);
       domElement.css("margin", marginTop+"px "+marginRight+"px "+marginBottom+"px "+marginLeft+"px");
       domElement.css("float", float);
+      domElement.css("clear", clear);
     }
   };
 
