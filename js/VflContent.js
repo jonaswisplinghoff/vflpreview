@@ -75,9 +75,8 @@ function VflContent(vflCont) {
           setViewIsFirstElementOfLayoutOrientation(currentElement, orientation);
           firstElementMarked = true;
         }
-        setViewIsPartOfLayoutOrientation(currentElement, orientation);
         setViewDimensionForOrientation(currentElement, orientation);
-        setViewClearingForOrientation(currentElement, orientation);
+        setViewIsPartOfLayoutOrientation(currentElement, orientation);
 
       } else if(vflParser.isConnection(currentElement)){
         if (lastAddedViewElement !== null) {
@@ -110,15 +109,6 @@ function VflContent(vflCont) {
     }
     else if (orientation === 'V') {
       viewElements[view["viewName"]].setIsPartOfVerticalLayout();
-    }
-  };
-
-  var setViewClearingForOrientation = function (view, orientation){
-    if (orientation === 'H') {
-      viewElements[view["viewName"]].setClearing("none");
-    }
-    else if (orientation === 'V') {
-      viewElements[view["viewName"]].setClearing("left");
     }
   };
 
