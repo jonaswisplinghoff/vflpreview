@@ -72,11 +72,12 @@ function VflContent(vflCont) {
       if(vflParser.isView(currentElement)) {
         lastAddedViewElement = addViewToContentElement(currentElement);
         if(!firstElementMarked){
-          setViewIsFirstElementOfLayoutOrientation(currentElement, orientation);
+          setViewIsFirstElementOfLayoutOrientation(currentElement, orientation, true);
           firstElementMarked = true;
+        }else{
+          setViewIsFirstElementOfLayoutOrientation(currentElement, orientation, false);
         }
         setViewDimensionForOrientation(currentElement, orientation);
-        setViewIsPartOfLayoutOrientation(currentElement, orientation);
 
       } else if(vflParser.isConnection(currentElement)){
         if (lastAddedViewElement !== null) {
@@ -94,21 +95,12 @@ function VflContent(vflCont) {
     return viewElements[view["viewName"]];
   };
 
-  var setViewIsFirstElementOfLayoutOrientation = function(view, orientation){
+  var setViewIsFirstElementOfLayoutOrientation = function(view, orientation, first){
     if (orientation === 'H') {
-      viewElements[view["viewName"]].setisFirstElementOfHorizontalLayout();
+      viewElements[view["viewName"]].setisFirstElementOfHorizontalLayout(first);
     }
     else if (orientation === 'V') {
-      viewElements[view["viewName"]].setisFirstElementOfVerticalLayout();
-    }
-  };
-
-  var setViewIsPartOfLayoutOrientation = function(view, orientation){
-    if (orientation === 'H') {
-      viewElements[view["viewName"]].setIsPartOfHorizontalLayout();
-    }
-    else if (orientation === 'V') {
-      viewElements[view["viewName"]].setIsPartOfVerticalLayout();
+      viewElements[view["viewName"]].setisFirstElementOfVerticalLayout(first);
     }
   };
 

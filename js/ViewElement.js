@@ -35,26 +35,22 @@ function ViewElement(id, contentElement) {
 
   this.getId = function() { return domElementId; };
 
-  this.setisFirstElementOfHorizontalLayout = function(){
-    firstElementOfHorizontalLayout = true;
-    calculateClearing();
-    refreshProperties();
-  };
-
-  this.setisFirstElementOfVerticalLayout = function(){
-    firstElementOfVerticalLayout = true;
-    calculateClearing();
-    refreshProperties();
-  };
-
-  this.setIsPartOfHorizontalLayout = function(){
+  this.setisFirstElementOfHorizontalLayout = function(isFirstElement){
+    if(isFirstElement && !partOfHorizontalLayout){
+      firstElementOfHorizontalLayout = true;
+    }
     partOfHorizontalLayout = true;
+
     calculateClearing();
     refreshProperties();
   };
 
-  this.setIsPartOfVerticalLayout = function(){
+  this.setisFirstElementOfVerticalLayout = function(isFirstElement){
+    if(isFirstElement && !partOfVerticalLayout){
+      firstElementOfVerticalLayout = true;
+    }
     partOfVerticalLayout = true;
+
     calculateClearing();
     refreshProperties();
   };
