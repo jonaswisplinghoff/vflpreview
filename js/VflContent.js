@@ -60,6 +60,7 @@ function VflContent(vflCont) {
     var orientation = vflParser.getOrientation(vflString);
     var viewsOrConnections = vflParser.getViewsAndConnectionsFromVflString(vflString);
     var lastAddedViewElement=null;
+    var firstElementMarked=false;
 
     for (var elementIndex = 0; elementIndex < viewsOrConnections.length; elementIndex++) {
       var currentElement = viewsOrConnections[elementIndex];
@@ -70,10 +71,13 @@ function VflContent(vflCont) {
 
       if(vflParser.isView(currentElement)) {
         lastAddedViewElement = addViewToContentElement(currentElement);
-        setViewIsPartOfLayoutOrientation(currentElement, orientation);
+        if(!firstElementMarked){
+          setViewIsFirstElementOfLayoutOrientation(currentElement, orientation, true);
+          firstElementMarked = true;
+        }else{
+          setViewIsFirstElementOfLayoutOrientation(currentElement, orientation, false);
+        }
         setViewDimensionForOrientation(currentElement, orientation);
-        setViewFloatingForOrientation(currentElement, orientation);
-        setViewClearingForOrientation(currentElement, orientation);
 
       } else if(vflParser.isConnection(currentElement)){
         if (lastAddedViewElement !== null) {
@@ -91,30 +95,12 @@ function VflContent(vflCont) {
     return viewElements[view["viewName"]];
   };
 
-  var setViewIsPartOfLayoutOrientation = function(view, orientation){
+  var setViewIsFirstElementOfLayoutOrientation = function(view, orientation, first){
     if (orientation === 'H') {
-      viewElements[view["viewName"]].setIsPartOfHorizontalLayout();
+      viewElements[view["viewName"]].setisFirstElementOfHorizontalLayout(first);
     }
     else if (orientation === 'V') {
-      viewElements[view["viewName"]].setIsPartOfVerticalLayout();
-    }
-  };
-
-  var setViewFloatingForOrientation = function (view, orientation) {
-    if (orientation === 'H') {
-      viewElements[view["viewName"]].setFloating("left");
-    }
-    else if (orientation === 'V') {
-      viewElements[view["viewName"]].setFloating("none");
-    }
-  };
-
-  var setViewClearingForOrientation = function (view, orientation){
-    if (orientation === 'H') {
-      viewElements[view["viewName"]].setClearing("none");
-    }
-    else if (orientation === 'V') {
-      viewElements[view["viewName"]].setClearing("left");
+      viewElements[view["viewName"]].setisFirstElementOfVerticalLayout(first);
     }
   };
 

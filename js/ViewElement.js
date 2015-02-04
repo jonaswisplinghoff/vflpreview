@@ -11,10 +11,13 @@ function ViewElement(id, contentElement) {
   var marginRight=0;
   var marginBottom=0;
   var marginLeft=0;
-  var float="none";
+  var float="left";
   var clear="none";
   var partOfHorizontalLayout=false;
   var partOfVerticalLayout=false;
+  var firstElementOfHorizontalLayout=false;
+  var firstElementOfVerticalLayout=false;
+
 
   var construct = function(id, contentEl) {
     domElementId=id;
@@ -32,12 +35,24 @@ function ViewElement(id, contentElement) {
 
   this.getId = function() { return domElementId; };
 
-  this.setIsPartOfHorizontalLayout = function(){
+  this.setisFirstElementOfHorizontalLayout = function(isFirstElement){
+    if(isFirstElement && !partOfHorizontalLayout){
+      firstElementOfHorizontalLayout = true;
+    }
     partOfHorizontalLayout = true;
+
+    calculateClearing();
+    refreshProperties();
   };
 
-  this.setIsPartOfVerticalLayout = function(){
+  this.setisFirstElementOfVerticalLayout = function(isFirstElement){
+    if(isFirstElement && !partOfVerticalLayout){
+      firstElementOfVerticalLayout = true;
+    }
     partOfVerticalLayout = true;
+
+    calculateClearing();
+    refreshProperties();
   };
 
   this.setWidth = function(w) {
@@ -88,26 +103,16 @@ function ViewElement(id, contentElement) {
     }
   };
 
-  this.setFloating = function (f) {
-    if(partOfHorizontalLayout && f === "none"){
-      // Do nothing
+  var calculateClearing = function () {
+    if((partOfHorizontalLayout && !firstElementOfHorizontalLayout)) {
+      clear = "none";
     }else{
-      float = f;
+      clear = "left";
     }
-    refreshProperties();
-  };
-
-  this.setClearing = function (c) {
-    if(partOfHorizontalLayout && c === "left") {
-      // Do nothing
-    }else{
-      clear = c;
-    }
-    refreshProperties();
   };
 
   var refreshProperties = function() {
-    console.log(domElementId+" - width: "+width+"; height: "+height+"; margin: "+marginTop+" "+marginRight+" "+marginBottom+" "+marginLeft+"; float: " + float + "; clear: " + clear + ";");
+    console.log(domElementId+" - Horizontal:"+partOfHorizontalLayout + ", 1st:" + firstElementOfHorizontalLayout + ", Vertical:"+partOfVerticalLayout+", 1st:"+firstElementOfVerticalLayout+" - width: "+width+"; height: "+height+"; margin: "+marginTop+" "+marginRight+" "+marginBottom+" "+marginLeft+"; float: " + float + "; clear: " + clear + ";");
     if(domElement.length === 0){
       console.log("domElement of "+domElementId+" does not yet exist.");
     } else {
