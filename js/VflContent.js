@@ -39,12 +39,12 @@ function VflContent(vflCont) {
 
     self.reset();
 
-    layoutConstrainsWithOrientation(constraints, 'H');
-    layoutConstrainsWithOrientation(constraints, 'V');
+    layoutConstraintsWithOrientation('H');
+    layoutConstraintsWithOrientation('V');
 
   };
 
-  var layoutConstrainsWithOrientation = function(constraints, layoutOrientation){
+  var layoutConstraintsWithOrientation = function(layoutOrientation){
 
     for(var constraintIndex = 0; constraintIndex < constraints.length; constraintIndex++){
       var vflString = constraints[constraintIndex];
